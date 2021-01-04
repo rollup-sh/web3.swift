@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'rollupweb3'
-  s.version = '0.5.1'
+  s.version = '0.5.2'
   s.license = 'MIT'
   s.summary = 'Ethereum API for Swift'
   s.homepage = 'https://github.com/rollup-sh/web3.swift'
