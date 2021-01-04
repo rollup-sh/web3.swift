@@ -20,10 +20,11 @@ public struct EthereumTransactionReceipt: Decodable {
     public var transactionIndex: BigUInt
     public var blockHash: String
     public var blockNumber: BigUInt
+    public var cumulativeGasUsed: BigUInt
     public var gasUsed: BigUInt
     public var contractAddress: EthereumAddress?
     public var logs: Array<EthereumLog> = []
-    var logsBloom: Data?
+    public var logsBloom: Data?
     public var status: EthereumTransactionReceiptStatus
     
     enum CodingKeys: String, CodingKey {
@@ -51,13 +52,15 @@ public struct EthereumTransactionReceipt: Decodable {
         let gasUsedString = try values.decode(String.self, forKey: .gasUsed)
         let logsBloomString = try values.decode(String.self, forKey: .logsBloom)
         let statusString = try values.decode(String.self, forKey: .status)
+        let cumulativeGasUsedString = try values.decode(String.self, forKey: .cumulativeGasUsed)
         
-        guard let transactionIndex = BigUInt(hex: transactionIndexString), let blockNumber = BigUInt(hex: blockNumberString), let gasUsed = BigUInt(hex: gasUsedString), let statusCode = Int(hex: statusString) else {
+        guard let transactionIndex = BigUInt(hex: transactionIndexString), let blockNumber = BigUInt(hex: blockNumberString), let gasUsed = BigUInt(hex: gasUsedString), let statusCode = Int(hex: statusString), let cumulativeGasUsed = BigUInt(hex: cumulativeGasUsedString) else {
             throw EthereumClientError.decodeIssue
         }
         
         self.transactionIndex = transactionIndex
         self.blockNumber = blockNumber
+        self.cumulativeGasUsed = cumulativeGasUsed
         self.gasUsed = gasUsed
         self.logsBloom = Data(hex: logsBloomString) ?? nil
         self.status = EthereumTransactionReceiptStatus(rawValue: statusCode) ?? .notProcessed
