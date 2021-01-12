@@ -45,6 +45,8 @@
 		47F2EAAD22848BA7007063C2 /* ERC721Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F2EAAC22848BA7007063C2 /* ERC721Events.swift */; };
 		47F2EAAF22848BB2007063C2 /* ERC721Responses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F2EAAE22848BB2007063C2 /* ERC721Responses.swift */; };
 		47F2EAB32285BBDF007063C2 /* ERC165Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F2EAB12285BAB6007063C2 /* ERC165Tests.swift */; };
+		6519E3E525ADAC3A00F103A2 /* SolidityUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519E3E425ADAC3A00F103A2 /* SolidityUtil.swift */; };
+		6519E3E925ADADEF00F103A2 /* SolidityUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6519E3E825ADADEF00F103A2 /* SolidityUtilTests.swift */; };
 		6C4ABDDAA3313A1B32EAB620 /* Pods_web3swiftTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E4FAB97C27DB6CBB355E0F1 /* Pods_web3swiftTests.framework */; };
 		9164E8EEDA7FB33A6638D561 /* Pods_web3swift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BD54E6F686FEE6C1126AB6A0 /* Pods_web3swift.framework */; };
 		C91A7E80205C1F120074D3B4 /* ABIEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91A7E7F205C1F120074D3B4 /* ABIEncoder.swift */; };
@@ -155,6 +157,8 @@
 		52B3D38DF87EAFCBBD99CCF1 /* Pods-web3swiftTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3swiftTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-web3swiftTests/Pods-web3swiftTests.debug.xcconfig"; sourceTree = "<group>"; };
 		595F7375549A81C8950C1F8E /* Pods-web3s.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3s.release.xcconfig"; path = "Pods/Target Support Files/Pods-web3s/Pods-web3s.release.xcconfig"; sourceTree = "<group>"; };
 		5E4FAB97C27DB6CBB355E0F1 /* Pods_web3swiftTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3swiftTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6519E3E425ADAC3A00F103A2 /* SolidityUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityUtil.swift; sourceTree = "<group>"; };
+		6519E3E825ADADEF00F103A2 /* SolidityUtilTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolidityUtilTests.swift; sourceTree = "<group>"; };
 		673183DE4025E9D5F5EAF360 /* Pods-web3swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3swift.release.xcconfig"; path = "Pods/Target Support Files/Pods-web3swift/Pods-web3swift.release.xcconfig"; sourceTree = "<group>"; };
 		7DE9D050B2C662A66E6B59CE /* Pods-web3swiftTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-web3swiftTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-web3swiftTests/Pods-web3swiftTests.release.xcconfig"; sourceTree = "<group>"; };
 		A1CC3A57435EC4F90800C052 /* Pods_web3s.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_web3s.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -358,6 +362,7 @@
 				C9A78E402057F04800CF8316 /* HexUtil.swift */,
 				3CF37CB3203453D80030520E /* KeyUtil.swift */,
 				3CF37CDE203704490030520E /* AesUtil.swift */,
+				6519E3E425ADAC3A00F103A2 /* SolidityUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -511,6 +516,7 @@
 				C9A78E4C20583EFD00CF8316 /* HexUtilTests.swift */,
 				3CF37CB52034542F0030520E /* KeyUtilTests.swift */,
 				3CF37CE02037096A0030520E /* AesUtilTests.swift */,
+				6519E3E825ADADEF00F103A2 /* SolidityUtilTests.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -798,6 +804,7 @@
 				3CF37CDF203704490030520E /* AesUtil.swift in Sources */,
 				C91A7E8A20613A8D0074D3B4 /* EthereumBlock.swift in Sources */,
 				47F2EAAF22848BB2007063C2 /* ERC721Responses.swift in Sources */,
+				6519E3E525ADAC3A00F103A2 /* SolidityUtil.swift in Sources */,
 				3CF37CDB203704050030520E /* aes.c in Sources */,
 				3CF37CB4203453D80030520E /* KeyUtil.swift in Sources */,
 				C9236B8D2052E51100CE5557 /* EthereumAccount+SignTransaction.swift in Sources */,
@@ -837,6 +844,7 @@
 				C9A78E6B2059405D00CF8316 /* HexExtensionsTests.swift in Sources */,
 				C9A78E4D20583EFD00CF8316 /* HexUtilTests.swift in Sources */,
 				C927FD702052819C005922DC /* EthereumClientTests.swift in Sources */,
+				6519E3E925ADADEF00F103A2 /* SolidityUtilTests.swift in Sources */,
 				C9A78E4F20583F1300CF8316 /* KeccakExtensionsTests.swift in Sources */,
 				C967AAB02080C38000A24D15 /* ERC20Tests.swift in Sources */,
 				C9236BA32057CE6F00CE5557 /* EthereumAccountTests.swift in Sources */,

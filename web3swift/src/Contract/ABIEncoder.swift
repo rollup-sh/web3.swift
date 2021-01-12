@@ -79,7 +79,8 @@ public class ABIEncoder {
             if padded {
                 encoded = [UInt8](repeating: 0x00, count: 32 - bytes.count) + bytes
             } else {
-                encoded = bytes
+                encoded = bytes.count == size ? bytes : (size > 1 ? [UInt8](repeating: 0x00, count: size - 1) + bytes : bytes)
+                    
             }
         case .FixedInt(_):
             guard let int = value.web3.isNumeric ? BigInt(value) : BigInt(hex: value) else {
@@ -98,7 +99,12 @@ public class ABIEncoder {
             }
             
             if !padded {
-                encoded = bytes
+                if int < 0 {
+                    encoded = bytes.count == size ? bytes :( size > 1 ? [UInt8](repeating: 0xff, count: size - 1) + bytes : bytes)
+                } else {
+                    encoded = bytes.count == size ? bytes : (size > 1 ? [UInt8](repeating: 0, count: size - 1) + bytes : bytes)
+                }
+
             }
         case .FixedBool:
             encoded = try encodeRaw(value == "true" ? "1":"0", forType: ABIRawType.FixedUInt(8))
