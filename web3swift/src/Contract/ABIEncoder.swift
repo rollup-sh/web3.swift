@@ -44,14 +44,14 @@ public class ABIEncoder {
         public var hexString: String { String(hexFromBytes: bytes) }
     }
     
-    static func encodeRaw(_ value: Data,
+    public static func encodeRaw(_ value: Data,
                           forType type: ABIRawType,
                           padded: Bool = true,
                           size: Int = 1) throws -> EncodedValue {
         return try encodeRaw(value.web3.hexString, forType: type, padded: padded, size: size)
     }
     
-    static func encodeRaw(_ value: String,
+    public static func encodeRaw(_ value: String,
                           forType type: ABIRawType,
                           padded: Bool = true,
                           size: Int = 1) throws -> EncodedValue {
