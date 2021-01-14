@@ -134,7 +134,7 @@ extension ABIRawType: RawRepresentable {
         }
     }
     
-    var size: Int {
+    public var size: Int {
         switch self {
         case .FixedBool:
             return 8
