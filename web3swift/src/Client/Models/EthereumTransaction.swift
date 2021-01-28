@@ -22,7 +22,7 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
     public let from: EthereumAddress?
     public let to: EthereumAddress
     public let value: BigUInt?
-    public let data: Data?
+    public private(set) var data: Data?
     public var nonce: Int?
     public let gasPrice: BigUInt?
     public let gasLimit: BigUInt?
@@ -34,6 +34,7 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
             self.hash = self.raw?.web3.keccak256
         }
     }
+    let input: String?
     
     public init(from: EthereumAddress?, to: EthereumAddress, value: BigUInt?, data: Data?, nonce: Int?, gasPrice: BigUInt?, gasLimit: BigUInt?, chainId: Int?) {
         self.from = from
@@ -48,6 +49,7 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
         self.blockNumber = nil
         let txArray: [Any?] = [self.nonce, self.gasPrice, self.gasLimit, self.to.value.web3.noHexPrefix, self.value, self.data, self.chainId, 0, 0]
         self.hash = RLP.encode(txArray)
+        self.input = nil
     }
     
     public init(from: EthereumAddress?, to: EthereumAddress, data: Data, gasPrice: BigUInt, gasLimit: BigUInt) {
@@ -60,6 +62,7 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
         self.gas = nil
         self.blockNumber = nil
         self.hash = nil
+        self.input = nil
     }
     
     public init(to: EthereumAddress, data: Data) {
@@ -72,6 +75,7 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
         self.gas = nil
         self.blockNumber = nil
         self.hash = nil
+        self.input = nil
     }
     
     public var raw: Data? {
@@ -91,6 +95,7 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
         case gasLimit
         case blockNumber
         case hash
+        case input
     }
     
     public init(from decoder: Decoder) throws {
@@ -98,6 +103,7 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
         self.to = try container.decode(EthereumAddress.self, forKey: .to)
         self.from = try? container.decode(EthereumAddress.self, forKey: .from)
         self.data = try? container.decode(Data.self, forKey: .data)
+        self.input = try? container.decode(String.self, forKey: .input)
         
         let decodeHexUInt = { (key: CodingKeys) -> BigUInt? in
             return (try? container.decode(String.self, forKey: key)).flatMap { BigUInt(hex: $0)}
@@ -115,6 +121,10 @@ public struct EthereumTransaction: EthereumTransactionProtocol, Equatable, Codab
         self.blockNumber = try? container.decode(EthereumBlock.self, forKey: .blockNumber)
         self.hash = (try? container.decode(String.self, forKey: .hash))?.web3.hexData
         self.chainId = nil
+        // Rename input to data
+        if self.input != nil && self.data == nil {
+            self.data = Data(hex: self.input!)
+        }
     }
     
     public func encode(to encoder: Encoder) throws {
