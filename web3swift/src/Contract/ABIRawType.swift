@@ -116,7 +116,7 @@ extension ABIRawType: RawRepresentable {
         }
     }
     
-    var isArray: Bool {
+    public var isArray: Bool {
         switch self {
         case .FixedArray(_, _), .DynamicArray(_):
             return true
@@ -140,6 +140,23 @@ extension ABIRawType: RawRepresentable {
             return 8
         case .FixedAddress:
             return 160
+        case .FixedUInt(let size), .FixedInt(let size):
+            return size / 8
+        case .FixedBytes(let size), .FixedArray(_, let size):
+            return size
+        case .DynamicArray(_):
+            return -1
+        default:
+            return 0
+        }
+    }
+    
+    public var length: Int {
+        switch self {
+        case .FixedBool:
+            return 1
+        case .FixedAddress:
+            return 20
         case .FixedUInt(let size), .FixedInt(let size):
             return size / 8
         case .FixedBytes(let size), .FixedArray(_, let size):

@@ -171,8 +171,36 @@ public class ABIEncoder {
             encoded = len + bytes + [UInt8](repeating: 0x00, count: pack * 32 - bytes.count)
         case .Tuple:
             throw ABIError.notCurrentlySupported
-        case .FixedArray:
-            throw ABIError.notCurrentlySupported
+        case .FixedArray(let type, let typeSize):
+            guard let bytes = value.web3.bytesFromHex else { throw ABIError.invalidValue }
+            var len:[UInt8] = []
+            if type.rawValue.starts(with: "bytes") {
+                
+                let sizeValue = String(format:"%02X", size)
+                if size > 256 {
+                    let bigNumber = BigUInt(size).web3.hexString
+                    guard let sizeBytes = bigNumber.web3.bytesFromHex else {
+                        throw ABIError.invalidValue
+                    }
+                    len = sizeBytes
+                } else {
+                    len = try encodeRaw(sizeValue, forType: type, padded: false, size: typeSize).bytes
+                }
+                if typeSize > 1 && len.count < typeSize {
+                    len = [UInt8](repeating: 0, count: typeSize - 1) + len
+                }
+                
+            } else {
+                len = try encodeRaw(String(bytes.count), forType: type, padded: false, size: typeSize).bytes
+                if typeSize > 1 {
+                    len = [UInt8](repeating: 0, count: typeSize - 1) + len
+                }
+            }
+            let pack = (bytes.count - (bytes.count % 32)) / 32 + 1
+            encoded = len + bytes
+            if padded {
+                encoded += [UInt8](repeating: 0x00, count: pack * 32 - bytes.count)
+            }
         }
         
         return encoded
